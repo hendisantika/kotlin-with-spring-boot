@@ -10,11 +10,11 @@ import java.time.Instant
 @RestController
 class FirstController {
     /** The ultimate answer to life, the universe and everything */
-    @RequestMapping("/answer")
+    @GetMapping("/answer")
     fun answer() = 42
 
     /** Get the details of a user */
-    @RequestMapping("/user")
+    @GetMapping("/user")
     fun getUser() : User {
         val user = User(
                 username = "hendisantika",
@@ -30,7 +30,7 @@ class FirstController {
      * @param value The value to manipulate
      * @param operation The operation to perform
      */
-    @RequestMapping("/string/{value}")
+    @GetMapping("/string/{value}")
     fun manipulateString(@PathVariable("value") value: String,
                          @RequestParam(name = "operation", defaultValue = "none") operation: String) : String {
         return when (operation.toUpperCase()) {
@@ -45,7 +45,7 @@ class FirstController {
      * Pretend to create a new user
      * @param user The details of the user to create
      */
-    @RequestMapping(value = "/user", method = arrayOf(RequestMethod.POST))
+    @PostMapping("/user")
     fun createUser(@RequestBody user: NewUser): User {
         return User(
                 username = user.username,
@@ -56,7 +56,7 @@ class FirstController {
     }
 
     /** Cause an error to occur */
-    @RequestMapping("/raiseError")
+    @GetMapping("/raiseError")
     fun raiseError() {
         throw IllegalArgumentException("This shouldn't have happened")
     }
